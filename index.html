@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TileTally — Tile Calculator: How Many Tiles & Boxes Do I Need (With Wastage)?</title>
+<meta name="description" content="Free tile calculator. Enter room size and tile size to get tiles needed including pattern wastage, grout-gap allowance, boxes to buy and an estimated cost — for floors and walls.">
+<link rel="canonical" href="https://tiletally.fixoraa.tech/">
+<meta property="og:title" content="TileTally — Tile Calculator: How Many Tiles & Boxes Do I Need (With Wastage)?">
+<meta property="og:description" content="Free tile calculator. Enter room size and tile size to get tiles needed including pattern wastage, grout-gap allowance, boxes to buy and an estimated cost — for floors and walls.">
+<meta property="og:url" content="https://tiletally.fixoraa.tech/">
+<meta property="og:type" content="website">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{--pri:#0F766E;--acc:#D97706;--bgc:#F0FDF9}
+body{background:var(--bgc);font-family:'Segoe UI',system-ui,sans-serif}
+.pri{background:var(--pri)} .prit{color:var(--pri)} .acct{color:var(--acc)}
+.btn{background:var(--pri);color:#fff;padding:.6rem 1.2rem;border-radius:.6rem;font-weight:600;cursor:pointer;border:none}
+.btn:hover{opacity:.9} .btn2{background:var(--acc);color:#111;padding:.6rem 1.2rem;border-radius:.6rem;font-weight:600;cursor:pointer;border:none}
+input,select,textarea{border:1.5px solid #cbd5e1;border-radius:.55rem;padding:.55rem .7rem;width:100%;background:#fff;color:#0f172a}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--pri);border-color:transparent}
+label{font-size:.83rem;font-weight:600;display:block;margin-bottom:.3rem}
+.card{background:#fff;border-radius:1rem;box-shadow:0 8px 30px rgba(15,23,42,.08);padding:1.4rem}
+article p{margin:.7rem 0;line-height:1.75;color:#334155}
+article h2{font-size:1.45rem;font-weight:800;margin:1.6rem 0 .4rem;color:#0f172a}
+.faq{background:#fff;border-radius:.7rem;padding:.9rem 1.1rem;margin:.55rem 0;box-shadow:0 2px 10px rgba(15,23,42,.05)}
+.faq summary{font-weight:700;cursor:pointer}
+table.dt{width:100%;border-collapse:collapse} table.dt th,table.dt td{border:1px solid #e2e8f0;padding:.45rem .6rem;text-align:left;font-size:.9rem}
+table.dt th{background:#f1f5f9}
+
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "TileTally", "url": "https://tiletally.fixoraa.tech/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free tile calculator. Enter room size and tile size to get tiles needed including pattern wastage, grout-gap allowance, boxes to buy and an estimated cost \u2014 for floors and walls."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much wastage should I add for tiles?", "acceptedAnswer": {"@type": "Answer", "text": "About 5% for a straight grid, 8% for offset, 12% for diagonal, 15% for herringbone and 18% for chevron. Irregular rooms with many cuts deserve a step more. The pattern selector applies these automatically."}}, {"@type": "Question", "name": "Does the grout gap really change the tile count?", "acceptedAnswer": {"@type": "Answer", "text": "Yes \u2014 each joint adds its width to every tile's footprint. At 3mm gaps with small tiles, the allowance can cover several percent of the floor. TileTally adds your gap to the tile dimensions before calculating coverage."}}, {"@type": "Question", "name": "Should I subtract doors and windows for wall tiling?", "acceptedAnswer": {"@type": "Answer", "text": "Yes for walls: subtract openings (a standard door \u2248 1.9 m\u00b2) from the area. For floors, subtract only fixed footprints like a bath or kitchen island, and keep the wastage percentage on the remainder."}}, {"@type": "Question", "name": "How many spare tiles should I keep?", "acceptedAnswer": {"@type": "Answer", "text": "The rounding to full boxes usually leaves a few \u2014 keep at least 3\u20135 tiles from the same batch, stored flat and labelled. A future crack repaired with a matching-batch tile is invisible; with a different dye lot it shows forever."}}, {"@type": "Question", "name": "What if my room is L-shaped?", "acceptedAnswer": {"@type": "Answer", "text": "Split it into rectangles, measure each, and either calculate separately and add the tiles, or add the areas and enter a single equivalent rectangle. Keep the pattern wastage on the total."}}, {"@type": "Question", "name": "Does the cost estimate include adhesive, grout and labour?", "acceptedAnswer": {"@type": "Answer", "text": "No \u2014 it covers tiles only, the figure most people need first. Use the computed area to budget adhesive and grout per square metre, and remember patterned layouts raise labour costs substantially."}}]}</script>
+</head>
+<body id="top">
+<header class="sticky top-0 z-40 shadow-md" style="background:#042F2E">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center justify-between">
+    <a href="#top" class="text-xl font-extrabold tracking-tight" style="color:#F0FDF9">▦ TileTally</a>
+    <nav class="flex gap-5 text-sm font-semibold" style="color:#F0FDF9">
+      <a href="#top" class="hover:underline">Home</a>
+      <a href="https://fixoraa.tech" class="hover:underline">More Tools</a>
+    </nav>
+  </div>
+</header>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pt-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <div class="origin-top scale-[0.44] sm:scale-100 shrink-0">
+        <script>
+          atOptions = { 'key' : '4e68ac77881c17fe128a46565d9a4e8c', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+        </script>
+        <script src="https://www.highrevenueformat.com/4e68ac77881c17fe128a46565d9a4e8c/invoke.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+<main class="mx-auto max-w-6xl px-4 sm:px-6 py-8">
+  <div class="text-center mb-6">
+    <h1 class="text-3xl sm:text-4xl font-extrabold" style="color:#0f172a">Tile Calculator — Tiles, Boxes & Cost</h1>
+    <p class="mt-2 text-slate-600 max-w-2xl mx-auto">Measure the room, pick the tile, choose your laying pattern — TileTally tells you the tiles you need including cuts and breakage, the boxes to order, and what it will cost. Order once, tile once.</p>
+    <span class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-bold text-white pri">✓ Unlimited Free Usage — No Signup, No Watermark</span>
+  </div>
+  <div class="grid md:grid-cols-5 gap-6">
+  <div class="card md:col-span-2 space-y-3">
+    <div><label>Room / wall length (metres)</label><input id="L" type="number" step="0.1" value="4"></div>
+    <div><label>Room / wall width (metres)</label><input id="W" type="number" step="0.1" value="3"></div>
+    <div><label>Tile size (cm × cm)</label><div class="flex gap-2"><input id="tL" type="number" value="60"><input id="tW" type="number" value="60"></div></div>
+    <div><label>Laying pattern (sets wastage)</label><select id="pat"><option value="straight">Straight grid — 5%</option><option value="offset">Offset / brick — 8%</option><option value="diagonal">Diagonal — 12%</option><option value="herringbone">Herringbone — 15%</option><option value="chevron">Chevron — 18%</option></select></div>
+    <div><label>Grout gap (mm)</label><input id="grout" type="number" value="3"></div>
+    <div><label>Tiles per box</label><input id="box" type="number" value="4"></div>
+    <div><label>Price per box</label><input id="price" type="number" value="1200"></div>
+    <button class="btn w-full" onclick="calc()">Calculate Tiles</button>
+  </div>
+  <div class="card md:col-span-3">
+    <div class="grid grid-cols-2 gap-3 text-center">
+      <div class="p-3 rounded-lg bg-teal-50"><div class="text-xs font-bold">AREA</div><div id="oArea" class="text-2xl font-extrabold">–</div></div>
+      <div class="p-3 rounded-lg bg-amber-50"><div class="text-xs font-bold">TILES TO BUY</div><div id="oTiles" class="text-2xl font-extrabold">–</div></div>
+      <div class="p-3 rounded-lg bg-teal-50"><div class="text-xs font-bold">BOXES</div><div id="oBoxes" class="text-2xl font-extrabold">–</div></div>
+      <div class="p-3 rounded-lg bg-amber-50"><div class="text-xs font-bold">EST. TILE COST</div><div id="oCost" class="text-2xl font-extrabold">–</div></div>
+    </div>
+    <div id="detail" class="mt-3 font-semibold"></div>
+    <p class="text-sm text-slate-600 mt-2">Tip: keep leftover tiles from the same batch — dye lots differ, and a future repair with a mismatched batch will show forever.</p>
+  </div></div>
+</main>
+<div class="no-print mx-auto max-w-6xl px-4 sm:px-6 pb-4" role="complementary" aria-label="Advertisement">
+  <div class="mx-auto text-center" style="max-width:728px">
+    <span class="block text-[10px] tracking-[0.18em] uppercase text-slate-400 mb-1.5">Advertisement</span>
+    <div class="flex justify-center overflow-hidden">
+      <script async src="https://js.wpadmngr.com/static/adManager.js" data-admpid="464498"></script>
+    </div>
+  </div>
+</div>
+<section class="mx-auto max-w-4xl px-4 sm:px-6 pb-6">
+  <article>
+  <h2>The most expensive tile mistake is arithmetic</h2>
+<p>Tiling projects rarely fail on craftsmanship alone — they fail at the order. Too few tiles and the job stalls for days while a matching batch is hunted, sometimes forever: manufacturers retire designs and dye lots shift, so the 'same' tile bought next month can sit visibly wrong beside this month's. Too many and you have donated a stack of heavy, fragile surplus to your garage. TileTally computes the honest middle: tiles for the area, adjusted for the grout gap, plus the wastage your chosen pattern genuinely creates — so the order is placed once, correctly, with spares that are deliberate rather than accidental.</p>
+<p>The inputs mirror how tilers actually think. Room dimensions give area; tile dimensions give coverage per tile — with the grout gap added to each tile's footprint, because a 3mm joint repeated a hundred times quietly covers real floor. Skipping the grout allowance is a classic under-order of several percent on small tiles, where joints are numerous. The calculator includes it at your measured gap, defaulting to the common 3mm.</p>
+<h2>Wastage is a property of the pattern, not your luck</h2>
+<p>Straight grid layouts waste least — about 5 percent covers edge cuts and the occasional breakage — because offcuts from one edge often fit the next. The moment a pattern turns diagonal, every perimeter tile becomes a custom cut and offcuts stop being reusable; 12 percent is the honest allowance. Herringbone and chevron, the showpieces, cut nearly every tile and waste 15–18 percent while looking like a million. Offset brick patterns sit between. These percentages are built into the pattern selector, replacing the single flat 'add 10 percent' folk rule that under-orders fancy floors and over-orders plain ones.</p>
+<p>Room shape bends the rule further: alcoves, L-shapes, stairs and rooms with many doorways all cut more than open rectangles. If your room is irregular, measure it as rectangles, sum the areas, and nudge the pattern's wastage up a step. Better a box returned unopened under the shop's policy than a floor finished in two dye lots.</p>
+<h2>Boxes, batches and the discipline of leftovers</h2>
+<p>Tiles are sold by the box, so the calculator rounds your tile count up to whole boxes at your supplier's pack size — and reports the true leftover, which is not waste but insurance. Keep at least a few tiles from the installed batch, stored flat somewhere dry, labelled with the room and date. A cracked tile in year six is a twenty-minute repair with a matching spare and a small excavation into discontinued-design archaeology without one. Contractors know this; the leftover stack in the corner is the mark of a finished job, not an unfinished one.</p>
+<p>When ordering, confirm the batch or calibre number on every box matches before the tiler opens them — mixed batches laid unknowingly are a heartbreak discovered at grouting time. And buy the whole order at once: splitting an order across deliveries reopens the dye-lot lottery that the arithmetic just closed.</p>
+<h2>Costing the job beyond the tile</h2>
+<p>The estimate covers tiles because tiles are the number people ask about, but a tiling budget has a supporting cast: adhesive and grout (roughly proportional to area and tile size), spacers and levelling clips, primer for thirsty substrates, trims for edges, and labour, which for patterned work often exceeds materials. Use the area figure from this page to quote those consumables — suppliers estimate adhesive per square metre — and treat the tile cost shown as the foundation of the budget, not its total. Floors also hide preparation: an uneven base telegraphs through large-format tiles, and rectifying it is cheaper before the first tile than after the fiftieth.</p>
+<p>Walls follow the same maths with two adjustments: subtract door and window openings from the area before calculating (measure them honestly — a standard door is about 1.9 m²), and remember wall tiles are often smaller, which multiplies grout joints and makes the grout-gap allowance matter even more. Measure twice, as the trade insists — the calculator is instant, so run both your careful measurement and your pessimistic one, and order to the larger if they differ.</p>
+<h2>Measuring a room like a tiler</h2>
+<p>Measure length and width at several points and take the largest of each — rooms are rarely true rectangles, walls bow, and corners lie. For an L-shaped room, split it into two rectangles, calculate each, and add. For a floor with a fixed island or bath footprint, subtract that footprint from the area (but not from the perimeter cuts — the wastage percentage still applies to the tiled remainder). Sketch the room on paper with the numbers on it before ordering; five minutes of sketching has saved more projects than any calculator.</p>
+<p>Finally, plan the layout's starting point: tilers centre patterns so edge cuts are balanced on both sides, which the wastage figures here assume. If your room's dimensions force sliver cuts under a centimetre at one edge, shifting the layout start by half a tile often cures it — a conversation to have with your tiler before adhesive meets floor, armed with the tile counts from this page.</p>
+<h2>The one-page summary</h2>
+<p>Area, times grout-adjusted tile coverage, times pattern wastage, rounded up to boxes: that is the whole formula, and every tiling disaster in history is one of its terms ignored. Run it here, keep the spares, match the batches, and the floor you imagined is the floor you get — tiled once, in one lot, with a labelled stack in the corner for the decade to come.</p>
+<h2>Small rooms, big tiles: layout warnings the numbers hide</h2>
+<p>Large-format tiles in small bathrooms are the era's favourite look and its commonest arithmetic ambush: when a tile spans a third of the room's width, a single awkward dimension can convert the whole job into bespoke cuts, and the true wastage climbs past the pattern's nominal figure. The calculator still gives the right order of magnitude, but for tiles over 60 cm in rooms under 2 m wide, add a few percent and dry-lay the first row before any adhesive: an hour of rehearsal that has saved many floors. Mosaics invert the problem — sold by the sheet, immune to most cutting waste, hungry for grout; order by area, and let the sheet count round itself.</p>
+<p>Whatever the format, photograph the batch label of every box before the packaging is binned. Between the calculator's count and that photograph, you hold the two artefacts a future repair will ever ask for.</p>
+<h2>Tiling over existing floors and other shortcuts</h2>
+<p>Tiling over sound existing tiles saves demolition and a day's mess, and the calculator's arithmetic is unchanged — but two warnings ride along: the finished floor rises by roughly a tile's thickness plus adhesive, which doors, thresholds and the last stair must forgive; and the old surface must be degreased and primed or the new bed will not hold. Similarly, 'no-grout' rectified looks demand near-perfect flatness to stay honest. Shortcuts are legitimate engineering when their conditions are met and expensive folklore when they are not — and in both cases the tile count this page produces remains the order quantity, wastage included, that the job will actually consume.</p>
+<h2>After the last tile: sealing the arithmetic</h2>
+<p>When the final tile is laid, walk the room with the invoice and the leftover stack and reconcile the three numbers — ordered, laid, remaining. They will not match the estimate to the tile, and they are not meant to: wastage is a distribution, not a prophecy. What the reconciliation gives you is your household's true wastage rate for that pattern and tiler, a number worth writing on the leftover box. The next room you tile will be estimated from evidence instead of folklore, which is how amateurs quietly become the people neighbours ask for advice.</p>
+  <h2>Frequently Asked Questions</h2>
+  <details class="faq"><summary>How much wastage should I add for tiles?</summary><p>About 5% for a straight grid, 8% for offset, 12% for diagonal, 15% for herringbone and 18% for chevron. Irregular rooms with many cuts deserve a step more. The pattern selector applies these automatically.</p></details>
+<details class="faq"><summary>Does the grout gap really change the tile count?</summary><p>Yes — each joint adds its width to every tile's footprint. At 3mm gaps with small tiles, the allowance can cover several percent of the floor. TileTally adds your gap to the tile dimensions before calculating coverage.</p></details>
+<details class="faq"><summary>Should I subtract doors and windows for wall tiling?</summary><p>Yes for walls: subtract openings (a standard door ≈ 1.9 m²) from the area. For floors, subtract only fixed footprints like a bath or kitchen island, and keep the wastage percentage on the remainder.</p></details>
+<details class="faq"><summary>How many spare tiles should I keep?</summary><p>The rounding to full boxes usually leaves a few — keep at least 3–5 tiles from the same batch, stored flat and labelled. A future crack repaired with a matching-batch tile is invisible; with a different dye lot it shows forever.</p></details>
+<details class="faq"><summary>What if my room is L-shaped?</summary><p>Split it into rectangles, measure each, and either calculate separately and add the tiles, or add the areas and enter a single equivalent rectangle. Keep the pattern wastage on the total.</p></details>
+<details class="faq"><summary>Does the cost estimate include adhesive, grout and labour?</summary><p>No — it covers tiles only, the figure most people need first. Use the computed area to budget adhesive and grout per square metre, and remember patterned layouts raise labour costs substantially.</p></details>
+  </article>
+</section>
+<footer class="mt-6 py-8" style="background:#042F2E;color:#F0FDF9">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 text-center text-sm">
+    <p class="font-bold text-base">TileTally</p>
+    <p class="opacity-80 mt-1">Free tile calculator. Enter room size and tile size to get tiles needed including pattern wastage, grout-gap allowance, boxes to buy and an estimated cost — for floors and walls.</p>
+    <p class="mt-2"><a href="#top" class="underline">Home</a> · <a href="https://fixoraa.tech" class="underline">More Tools</a></p>
+    <p class="fx-credit" style="text-align:center;font-size:12.5px;opacity:.62;margin:10px auto 2px;letter-spacing:.01em">Made by <a href="https://fixoraa.tech" target="_blank" rel="noopener" style="color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:2px">Fixoraa</a></p>
+  </div>
+</footer>
+<script id="lib-tiletally">
+
+function tileCalc(roomL, roomW, tileLcm, tileWcm, wastePct, groutMm, boxQty, pricePerBox){
+  var areaM2 = roomL*roomW;
+  var tileArea = ((tileLcm+groutMm/10)/100)*((tileWcm+groutMm/10)/100);
+  var base = Math.ceil(areaM2/tileArea);
+  var withWaste = Math.ceil(base*(1+wastePct/100));
+  var boxes = boxQty>0 ? Math.ceil(withWaste/boxQty) : 0;
+  return {areaM2:Math.round(areaM2*100)/100, base:base, tiles:withWaste, spare:withWaste-base, boxes:boxes, cost:Math.round(boxes*(pricePerBox||0))};
+}
+var PATTERNS = {straight:5, offset:8, diagonal:12, herringbone:15, chevron:18};
+if (typeof module!=="undefined") module.exports={tileCalc:tileCalc, PATTERNS:PATTERNS};
+
+</script>
+<script>
+
+function calc(){
+  var r=tileCalc(+document.getElementById('L').value,+document.getElementById('W').value,+document.getElementById('tL').value,+document.getElementById('tW').value,PATTERNS[document.getElementById('pat').value],+document.getElementById('grout').value,+document.getElementById('box').value,+document.getElementById('price').value);
+  document.getElementById('oArea').textContent=r.areaM2+' m²';
+  document.getElementById('oTiles').textContent=r.tiles.toLocaleString('en-IN');
+  document.getElementById('oBoxes').textContent=r.boxes;
+  document.getElementById('oCost').textContent='₹'+r.cost.toLocaleString('en-IN');
+  document.getElementById('detail').textContent='Base coverage needs '+r.base+' tiles; pattern wastage and spares add '+r.spare+'. Leftover after tiling ≈ '+(r.boxes*(+document.getElementById('box').value)-r.tiles)+' tiles from full boxes — keep them for repairs.';
+}
+calc();
+
+</script>
+</body>
+</html>
